@@ -1,0 +1,221 @@
+/* PHONE CSS
+*********************************************/
+
+#header, #breadcrumbs 
+{
+    display: none;    
+}
+
+
+#topMenu,
+#wrapper,
+#footer
+{
+    margin: 0;
+    padding: 0;    
+    width: 100%;
+}
+
+#topMenu li {
+    width: 100%;
+    border-right: none;
+    border-bottom:  1px solid #ccc;
+}
+#topMenu a {
+    padding: 1em 1em !important;
+    width: 100%;
+}
+
+section#content {
+    margin: 0;
+    width: 100%;
+}
+.news .row-1, .news .row-0, .news .leading-single, .blog-featured section {
+    padding: 0;
+}
+.news .leading-0, .news .row-0,
+.news .leading-1, .news .row-1 {
+    float: none;
+    width: auto;
+}
+#page-team-start .img-fulltext-none img {
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+
+    #topMenu {
+            position: relative;
+    }
+
+    #topMenu * {
+            box-sizing: border-box;
+    }
+
+    #menu-trigger {
+            display: block; /* Show it now */
+            padding: 0 0 0 35px;
+            height: 40px;
+            border: 1px solid #222;
+            border-radius: 6px;
+            background: url(data:image/png;base64,iVBOR...) no-repeat 10px center, linear-gradient(#444, #111);
+            background-color: #111;
+            /* Multiple backgrounds here, the first is base64 encoded */
+            box-shadow: 0 1px 1px #777, 0 1px 0 #666 inset;
+            color: #fafafa;
+            font-weight: bold;
+            line-height: 40px;
+            cursor: pointer;
+    }
+
+    #menu {
+            position: absolute;
+            top: 40px;
+            z-index: 1;
+            display: none;
+            margin: 0; padding: 10px;
+            width: 100%;
+            box-shadow: none;
+    }
+
+    #menu:after {
+            position: absolute;
+            top: -8px;
+            left: 25px;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #444;
+            border-left: 8px solid transparent;
+            content: '';
+    }       
+    #topMenu, .menu, #topMenu ul.menu, #topMenu ul {
+        margin: 0;
+        padding: 0;
+        background: rgba(0,0,75,1);
+        z-index: 3;
+    }
+    
+    
+    #menu ul {
+            position: static;
+            visibility: visible;
+            margin: 0;
+            background: none;
+            box-shadow: none;
+            opacity: 1;
+    }
+    #topMenu ul.menu ul {
+        position: relative;
+        top: auto;
+        left: auto;
+        z-index: auto;
+        visibility: visible;
+        opacity: 1;
+    }
+    #menu ul ul {
+            margin: 0 0 0 20px !important;
+            box-shadow: none;
+    }
+    #topMenu ul li ul li ul {
+        display: none;
+    }
+
+    #menu li {
+            position: static;
+            display: block;
+            float: none;
+            margin: 5px;
+            border: 0;
+            box-shadow: none;
+    }
+    #topMenu ul.menu ul li {
+        width: auto;
+        height: auto;
+        border: none;
+    }
+    #menu ul li {
+            margin-left: 20px;
+            box-shadow: none;
+    }
+    #topMenu ul.menu ul a {
+        margin: 0;
+        padding: 0;
+        width: auto;
+        height: auto;
+    }
+    #topMenu ul.menu ul li:first-child > a::after {
+        border: none;
+    }
+    #menu a{
+            display: block;
+            float: none;
+            padding: 0;
+            color: #999;
+            text-align: left;
+    }
+
+    #menu a:hover{
+            color: #fafafa;
+    }       
+
+    #menu ul a{
+            padding: 0;
+            width: auto;
+    }
+
+    #menu ul a:hover{
+
+    }
+
+    #menu ul li:first-child a:after,
+    #menu ul ul li:first-child a:after {
+            border: 0;
+    }               
+    aside {
+        padding: 0;
+        width: 100%;
+    }
+    #subMenu .sub-right:after {
+        border: none;
+    }
+    #subMenu .sub-right {
+        position: relative;
+        display: block !important;
+        background: none;
+        padding: 0;
+        margin-bottom: 2em;
+        top: 0;
+    }
+    #subMenu .sub-right li {
+        margin: 0;
+    }
+    #subMenu .sub-right li a{
+        color: #fff;
+        width: auto;
+        border: none;
+        padding: 0.5em 1em;
+    }
+
+    aside section ul.sub-right li:first-child a::after, aside section ul.sub-right li:first-child a::after, aside section ul.sub-right li.parent ul li:first-child a::after, aside section ul.sub-right li.parent ul li:first-child a::after {
+        border: none;
+    }
+}
+
+@media screen and (min-width: 600px) {
+        #menu {
+                display: block !important;
+        }
+}       
+.fb-like iframe, .fb-like span {width: auto !important;}
+.player-card-wrapper { width: 100%; }
+
+/* iPad */
+.no-transition {
+        display: none;
+        visibility: visible;
+        opacity: 1;
+        transition: none;
+}
+
+#menu li:hover > .no-transition {
+        display: block;
+}

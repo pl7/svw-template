@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
+<extension version="2.5" type="template" method="upgrade">
+	<name>Mein Verein</name>
+	<creationDate>2012-08-06</creationDate>
+	<author>Pascal Link</author>
+	<copyright>Copyright © 2012 PL07.de</copyright>
+	<authorEmail>pascal.link@pl07.de</authorEmail>
+	<authorUrl>http://www.pl07.de</authorUrl>
+	<version>1.0.0</version>
+	<description><![CDATA[
+		<h1>templatename</h1>
+		<p><img src="../templates/templatename/template_preview.png" /></p>
+		<p></p>
+		<h2>Module positions</h2>
+		<ol>
+			<li>header</li>
+			<li>menu</li>
+			<li>footer</li>
+			<li>debug</li>
+		</ol>
+		<p>Created by <a href="http://www.pl07.de" target="_blank">Pascal Link | pl07.de</a>.</p>
+	]]></description>
+	
+	<files>
+		<folder>css</folder>
+		<folder>html</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<filename>apple-touch-icon-57x57.png</filename>
+		<filename>apple-touch-icon-72x72.png</filename>
+		<filename>apple-touch-icon-114x114.png</filename>
+		<filename>component.php</filename>
+		<filename>error.php</filename>
+		<filename>favicon.ico</filename>
+		<filename>index.php</filename>
+		<filename>offline.php</filename>
+		<filename>template_preview.png</filename>
+		<filename>template_thumbnail.png</filename>
+		<filename>templateDetails.xml</filename>
+	</files>
+	<!--
+	<languages folder="language">
+		<language tag="de-DE">de-DE.tpl_templatename.ini</language>		<language tag="en-GB">en-GB.tpl_templatename.ini</language>
+	</languages>-->
+
+	
+	<positions>
+		<position>header</position>
+		<position>menu</position>
+		<position>footer</position>
+		<position>debug</position>
+		<position>kader-gk</position>
+		<position>kader-df</position>
+		<position>kader-mf</position>
+		<position>kader-fw</position>
+		<position>Facebook Like SVW Sidbar</position>
+		<position>fussball-de-widget-00</position>
+		<position>fussball-de-widget-01</position>
+		<position>fussball-de-widget-02</position>
+		<position>fussball-de-widget-03</position>
+		<position>fussball-de-widget-04</position>
+		<position>fussball-de-widget-05</position>
+		<position>fussball-de-widget-06</position>
+	</positions>
+	
+	<config>
+		<fields name="params">
+			<fieldset name="advanced">
+				<field name="FIELD_SPACER_HEADER_DESC" type="spacer" hr="false" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

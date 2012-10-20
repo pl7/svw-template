@@ -1,0 +1,15 @@
+
+.player-card-wrapper .position-category {
+
+	width/*\**/: 1.5em\9;/* IE8 & IE7 only*/	
+	left/*\**/: 11px\9;/* IE8 & IE7 only*/
+	height/*\**/: 150px\9;/* IE8 & IE7 only*/
+	position/*\**/: absolute\9;/* IE8 & IE7 only*/
+	top/*\**/: 49px\9;/* IE8 & IE7 only*/
+	writing-mode/*\**/: tb-lr\9; /* IE8 & IE7 only*/
+
+}
+
+ul.sub-right {
+	margin-bottom: 15px;
+}

@@ -1,0 +1,11 @@
+
+.player-card-wrapper .position-category {
+	top: auto\0/;/* IE9 & IE8 only */
+	left: -53px\0/;/* IE9 & IE8 only */
+	position: absolute\0/;/* IE9 & IE8 only */
+	height: auto\0/;/* IE9 & IE8 only */
+	display: inline\0/;/* IE9 & IE8 only */
+	width: auto\0/;/* IE9 & IE8 only */
+	writing-mode: lr-tb\0/; /* IE9 & IE8 only */
+
+}
