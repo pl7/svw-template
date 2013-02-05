@@ -17,43 +17,153 @@ $images = json_decode($this->item->images);
 $urls = json_decode($this->item->urls);
 $canEdit	= $this->item->params->get('access-edit');
 $user		= JFactory::getUser();
+$app = JFactory::getApplication(); 
+$templateparams	= $app->getTemplate(true)->params;
 
 ?>
-<?php if ($this->params->get('show_page_heading', 1)) : ?>
-	<h1>
-	<?php echo $this->escape($this->params->get('page_heading')); ?>
-	</h1>
-<?php endif; ?>
+
+<?php if($templateparams->get('svw_area',0) < 5) : ?>
+    <section class="page-item" id="team_HEADER" teamkey="<?php echo $params->get('team_key'); ?>" itemscope itemtype="http://schema.org/Organization" typeof="SportsTeam">
+        <article class="ac" id="team-info">
+            <header>
+                <h1 itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+            </header>
+            <div class="team-image-preview noPrint">
+                <?php  if (isset($images->image_intro) and !empty($images->image_intro)) : ?> 
+                    	<img id="<?php echo $params->get('team_key')."-team-picture"; ?>" 
+                    		<?php if ($images->image_intro_caption) echo 'title="'.htmlspecialchars($images->image_intro_caption) .'"'; ?>
+                    		src="<?php echo htmlspecialchars($images->image_intro); ?>" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>"
+                    		width="75%" itemprop="image" onclick="toggleFullSizeImage(this)"/>
+                <?php else : ?>
+                    <img class="team-preview" height="150px" itemprop="image" src="/images/default_team.png">
+                <?php endif; ?>
+                
+                <? /*! FACEBOOK LIKE BUTTON */ ?>
+                <?php if(!is_null($params->get('fb_like')) && $params->get('fb_like') == 1) : ?>
+                <div class="noPrint">
+                    <div class="fb-like">
+                        <fb:like href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" send="true" width="450" show_faces="false"></fb:like>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="content">
+                <?php echo $this->item->introtext; ?>
+            </div>
+        </article>
+    </section>
+<?php else : ?>
 <?php
 if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item->paginationposition && $this->item->paginationrelative)
 {
  echo $this->item->pagination;
 }
  ?>
-<div class="single-page">
-<article id="page-article" class="item-page<?php echo $this->pageclass_sfx?> group">
-<?php if ($params->get('show_title')) : ?>
+<section class="page-item ac image-left <?php echo $this->pageclass_sfx;?>">
+
+<?php /*! PAGE HEADER */
+ if ($this->params->get('show_page_heading', 1)) : ?>
 <header>
-	<h2>
-	<?php if ($params->get('link_titles') && !empty($this->item->readmore_link)) : ?>
-		<a href="<?php echo $this->item->readmore_link; ?>">
-		<?php echo $this->escape($this->item->title); ?></a>
-	<?php else : ?>
-		<?php echo $this->escape($this->item->title); ?>
-	<?php endif; ?>
-	</h2>
+	<h1>
+	<?php echo $this->escape($this->params->get('page_heading')); ?>
+	</h1>
 </header>
 <?php endif; ?>
-<? /*! FACEBOOK LIKE BUTTON */ ?>
-<?php if(!is_null($params->get('fb_like')) && $params->get('fb_like') == 1) : ?>
-<? /*    <div class="fb-like" data-href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" data-send="true" data-width="450" data-show-faces="false"></div> */?>
-    <div class="fb-like">
-        <fb:like href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" send="true" width="450" show_faces="false"></fb:like>
-    </div>
+<article id="page-article" class="item-page<?php echo $this->pageclass_sfx?> group" itemscope itemtype="http://schema.org/Article">
+<? /*! HEADER */ ?>
+
+<?php if ($params->get('show_title')) : ?>
+<header>
+	<h2  itemprop="headline">
+	<?php if ($params->get('link_titles') && !empty($this->item->readmore_link)) : ?>
+		<a href="<?php echo $this->item->readmore_link; ?>"><span  itemprop="name">
+		<?php echo $this->escape($this->item->title); ?></span></a>
+	<?php else : ?>
+		<span  itemprop="name"><?php echo $this->escape($this->item->title); ?></span>
+	<?php endif; ?>
+	</h2>
+	
+<? /*! DETAILS */ ?>
+<?php $useDefList = (($params->get('show_author')) or ($params->get('show_category')) or ($params->get('show_parent_category'))
+	or ($params->get('show_create_date')) or ($params->get('show_modify_date')) or ($params->get('show_publish_date'))
+	or ($params->get('show_hits'))); ?>
+<?php if ($useDefList) : ?>
+	<ul class="meta article-info">
+	<li class="subtitle article-info-term" itemprop="genre">
+		<?php if ($params->get('show_parent_category') && $this->item->parent_slug != '1:root') : ?>
+			<?php	$title = $this->escape($this->item->parent_title);
+			$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->parent_slug)).'">'.$title.'</a>';?>
+			<?php if ($params->get('link_parent_category') and $this->item->parent_slug) : ?><? /*! PARENT CATEGORY */ ?>
+				<?php echo JText::sprintf('COM_CONTENT_PARENT', $url); ?>
+			<?php else : ?>
+				<?php echo JText::sprintf('COM_CONTENT_PARENT', $title); ?>
+			<?php endif; ?>
+		<?php endif; ?>
+	</li><li>
+		<?php if ($params->get('show_category')) : ?><? /*! CATEGORY  */ ?>
+		<?php 	$title = $this->escape($this->item->category_title);
+		$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catslug)).'">'.$title.'</a>';?>
+		<?php if ($params->get('link_category') and $this->item->catslug) : ?>
+			<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $url); ?>
+		<?php else : ?>
+			<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $title); ?>
+		<?php endif; ?>
+		<?php endif; ?>	
+	</li>	
+	<?php if ($params->get('show_create_date')) : ?><? /*! CREATE DATE */ ?>
+		<li class="create">
+		<?php echo JText::sprintf('COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_LC2'))); ?>
+		</li>
+		<li itemprop="dateCreated" style="display:none"><?php echo $this->item->created; ?></li>
+	<?php endif; ?>
+	<?php if ($params->get('show_modify_date')) : ?><? /*! MODIFY */ ?>
+		<li class="modified">
+		<?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>	
+		</li>
+		<li itemprop="dateModified" style="display:none"><?php echo $this->item->modified; ?></li>
+	<?php endif; ?>
+	<?php if ($params->get('show_publish_date')) : ?><? /*! PUBLISHED */ ?>
+		<li class="published"><?php echo JHtml::_('date', $this->item->publish_up, JText::_('DATE_FORMAT_LC2')); ?></li>
+		<li itemprop="datePublished" style="display:none"><?php echo $this->item->publish_up; ?></li>
+	<?php endif; ?>
+	<?php if ($params->get('show_author') && !empty($this->item->author )) : ?>
+		<li class="createdby">
+		<?php $author = $this->item->author; ?>
+		<?php $author = ($this->item->created_by_alias ? $this->item->created_by_alias : $author); ?>
+		<?php if (!empty($this->item->contactid) && $params->get('link_author') == true): ?>
+		<?php
+			$needle = 'index.php?option=com_contact&view=contact&id=' . $this->item->contactid;
+			$menu = JFactory::getApplication()->getMenu();
+			$item = $menu->getItems('link', $needle, true);
+			$cntlink = !empty($item) ? $needle . '&Itemid=' . $item->id : $needle;
+		?>
+			<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', JHtml::_('link', JRoute::_($cntlink), $author)); ?>
+		<?php else: ?>
+			<?php echo $author; ?>
+		<?php endif; ?>
+		</li>
+		<li  itemprop="author" style="display:none"><?php echo $author; ?></li>
+	<?php endif; ?>
+	<?php if ($params->get('show_hits')) : ?>
+		<li class="hits">
+		<?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?>
+		</li>
+	<?php endif; ?>
+<?php endif; ?>
+<?php if ($useDefList) : ?>
+	</ul>
+<?php endif; ?>
+</header>
 <?php endif; ?>
 
-<?php if ($canEdit ||  $params->get('show_print_icon') || $params->get('show_email_icon')) : ?>
-	<ul class="actions">
+<?php  if (!$params->get('show_intro')) :
+	echo $this->item->event->afterDisplayTitle;
+endif; ?>
+
+<? /*! MENU */ ?>
+<?php if ($canEdit ||  $params->get('show_print_icon') || $params->get('show_email_icon')) : ?>	
+<menu>
+	<ul class="meta">			
 	<?php if (!$this->print) : ?>
 		<?php if ($params->get('show_print_icon')) : ?>
 			<li class="print-icon">
@@ -72,92 +182,28 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 			<?php echo JHtml::_('icon.edit', $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
-
 	<?php else : ?>
 		<li>
 		<?php echo JHtml::_('icon.print_screen',  $this->item, $params); ?>
 		</li>
 	<?php endif; ?>
-
 	</ul>
+</menu>
 <?php endif; ?>
 
-<?php  if (!$params->get('show_intro')) :
-	echo $this->item->event->afterDisplayTitle;
-endif; ?>
+
+<? /*! FACEBOOK LIKE BUTTON */ ?>
+<?php if(!is_null($params->get('fb_like')) && $params->get('fb_like') == 1) : ?>
+<? /*    <div class="fb-like" data-href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" data-send="true" data-width="450" data-show-faces="false"></div> */?>
+    <div class="fb-like">
+        <fb:like href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" send="true" width="450" show_faces="false"></fb:like>
+    </div>
+<?php endif; ?>
 
 <?php echo $this->item->event->beforeDisplayContent; ?>
 
-<?php $useDefList = (($params->get('show_author')) or ($params->get('show_category')) or ($params->get('show_parent_category'))
-	or ($params->get('show_create_date')) or ($params->get('show_modify_date')) or ($params->get('show_publish_date'))
-	or ($params->get('show_hits'))); ?>
 
-<?php if ($useDefList) : ?>
-	<dl class="article-info">
-	<dt class="article-info-term"><?php  echo JText::_('COM_CONTENT_ARTICLE_INFO'); ?></dt>
-<?php endif; ?>
-<?php if ($params->get('show_parent_category') && $this->item->parent_slug != '1:root') : ?>
-	<dd class="parent-category-name">
-	<?php	$title = $this->escape($this->item->parent_title);
-	$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->parent_slug)).'">'.$title.'</a>';?>
-	<?php if ($params->get('link_parent_category') and $this->item->parent_slug) : ?>
-		<?php echo JText::sprintf('COM_CONTENT_PARENT', $url); ?>
-	<?php else : ?>
-		<?php echo JText::sprintf('COM_CONTENT_PARENT', $title); ?>
-	<?php endif; ?>
-	</dd>
-<?php endif; ?>
-<?php if ($params->get('show_category')) : ?>
-	<dd class="category-name">
-	<?php 	$title = $this->escape($this->item->category_title);
-	$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catslug)).'">'.$title.'</a>';?>
-	<?php if ($params->get('link_category') and $this->item->catslug) : ?>
-		<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $url); ?>
-	<?php else : ?>
-		<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $title); ?>
-	<?php endif; ?>
-	</dd>
-<?php endif; ?>
-<?php if ($params->get('show_create_date')) : ?>
-	<dd class="create">
-	<?php echo JText::sprintf('COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_LC2'))); ?>
-	</dd>
-<?php endif; ?>
-<?php if ($params->get('show_modify_date')) : ?>
-	<dd class="modified">
-	<?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>
-	</dd>
-<?php endif; ?>
-<?php if ($params->get('show_publish_date')) : ?>
-	<dd class="published">
-	<?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE_ON', JHtml::_('date', $this->item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?>
-	</dd>
-<?php endif; ?>
-<?php if ($params->get('show_author') && !empty($this->item->author )) : ?>
-	<dd class="createdby">
-	<?php $author = $this->item->created_by_alias ? $this->item->created_by_alias : $this->item->author; ?>
-	<?php if (!empty($this->item->contactid) && $params->get('link_author') == true): ?>
-	<?php
-		$needle = 'index.php?option=com_contact&view=contact&id=' . $this->item->contactid;
-		$menu = JFactory::getApplication()->getMenu();
-		$item = $menu->getItems('link', $needle, true);
-		$cntlink = !empty($item) ? $needle . '&Itemid=' . $item->id : $needle;
-	?>
-		<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', JHtml::_('link', JRoute::_($cntlink), $author)); ?>
-	<?php else: ?>
-		<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
-	<?php endif; ?>
-	</dd>
-<?php endif; ?>
-<?php if ($params->get('show_hits')) : ?>
-	<dd class="hits">
-	<?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?>
-	</dd>
-<?php endif; ?>
-<?php if ($useDefList) : ?>
-	</dl>
-<?php endif; ?>
-
+<? /* TOC */ ?>
 <?php if (isset ($this->item->toc)) : ?>
 	<?php echo $this->item->toc; ?>
 <?php endif; ?>
@@ -170,31 +216,38 @@ endif; ?>
 <?php if ($params->get('access-view')):?>
 <?php  if (isset($images->image_fulltext) and !empty($images->image_fulltext)) : ?>
 <?php $imgfloat = (empty($images->float_fulltext)) ? $params->get('float_fulltext') : $images->float_fulltext; ?>
-<div class="img-fulltext-<?php echo htmlspecialchars($imgfloat); ?>">
+<div class="image-feat" style="width:150px;">
     <?php 
         $pdf_url = substr(htmlspecialchars($images->image_fulltext),0,-4).".pdf";
+		$full_img_url = str_replace("_tb","",htmlspecialchars($images->image_fulltext));
         echo '<!-- '.$pdf_url.' -->';
         if(file_exists($pdf_url)) :
     ?>
-            <a href="<?php echo $pdf_url; ?>" title="PDF herunterladen" target="_blank">
-    <?php endif; ?>
-        
+		<a href="<?php echo $pdf_url; ?>" title="PDF herunterladen" target="_blank">
+			<?php endif; ?>
+			<?php if(!file_exists($pdf_url)) : ?>
+					<a href="<?php if(file_exists($full_img_url)) echo htmlspecialchars($full_img_url); else echo htmlspecialchars($images->image_fulltext); ?>" title="Bild im neuem Tab &ouml;ffnen" target="_blank">
+			<?php endif; ?>			
         <? /* IMG FILE */ ?>
-        <img
+        <img itemprop="image"
         	<?php if ($images->image_fulltext_caption):
-        		echo 'class="caption"'.' title="' .htmlspecialchars($images->image_fulltext_caption) .'"';
+        		echo 'class="img-caption"'.' title="' .htmlspecialchars($images->image_fulltext_caption) .'"';
         	endif; ?>
         	src="<?php echo htmlspecialchars($images->image_fulltext); ?>" alt="<?php echo htmlspecialchars($images->image_fulltext_alt); ?>"/>
         <? /* IMG FILE END */ ?>
-		<?php if(file_exists($pdf_url)){ echo'</a>';} ?>
+		</a>
+		<?php if ($images->image_intro_caption):
+			echo '<p class="img-caption-text">'.htmlspecialchars($images->image_intro_caption) .'</p>';
+		endif; ?>
 </div>
 <?php endif; ?>
+
 <?php
 if (!empty($this->item->pagination) AND $this->item->pagination AND !$this->item->paginationposition AND !$this->item->paginationrelative):
 	echo $this->item->pagination;
  endif;
 ?>
-<div class="articleContent">
+<div class="content">
 <?php echo $this->item->text; ?>
 </div>
 <?php
@@ -239,8 +292,6 @@ if (!empty($this->item->pagination) AND $this->item->pagination AND $this->item-
 
 <?php echo $this->item->event->afterDisplayContent; ?>
 </article>
-</div>
-<? /*
-<div class="facebookComments">
-    <fb:comments href="<?php echo $this->item->readmore_link; ?>" num_posts="15" width="700"></fb:comments>
-</div> */ ?>
+</section>
+
+<? endif;  // areatype or else ?>

@@ -17,9 +17,9 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 
 ?>
-<article itemscope itemtype="http://schema.org/Article" <?php if ($this->item->state == 0)  echo ' class="system-unpublished"'; ?>  class="<?php echo 'cat-'.$this->item->catid.' parent-'.$this->item->parent_id; ?>">
+<article itemscope itemtype="http://schema.org/Article" <?php if ($this->item->state == 0)  echo ' class="system-unpublished"'; ?>  class="ac <?php echo 'cat-'.$this->item->catid.' parent-'.$this->item->parent_id; ?>">
 
-<? /* BLOG ITEM CATEGORY */ ?>
+<? /* !BLOG ITEM CATEGORY */ ?>
 <?php if ($params->get('show_category') or ($params->get('show_parent_category'))) : ?>
 <h6 class="category cat" property="genre">
 	<?php if ($params->get('show_parent_category') && $this->item->parent_id != 1) : ?>
@@ -58,14 +58,23 @@ JHtml::_('behavior.tooltip');
 	</div>
 <?php endif; ?>
 
-<?php // !HEADER ?>
+<?php // !HEADER 
+?>
 <header>
 	<?php if ($params->get('show_title')) : ?>
-		<?php if ($params->get('link_titles') && $params->get('access-view')) echo'<a href="'.JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid)).'">'; ?>
-			<h2 class="title" itemprop="headline"><?php echo $this->escape($this->item->title); ?></h2>
-		<?php if ($params->get('link_titles') && $params->get('access-view')) echo'</a>'; ?>
-		<h6 class="subtitle" property="alternativeHeadline" style="display:none">Untertitle</h6>
-	<?php endif; ?>
+    <div style="float: left;margin-right: 1em;">
+        <div class="svwDate month"><?php echo JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_SVW_MONTH')); ?></div>
+        <div class="svwDate date"><?php echo JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_SVW_DATE')); ?></div>
+        <div class="svwDate day"><?php echo JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_SVW_DAY')); ?></div>
+    </div>
+	<?php if ($params->get('link_titles') && $params->get('access-view')) echo'<a href="'.JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid)).'">'; ?>
+        <h2 class="title" itemprop="headline">
+            <?php echo $this->escape($this->item->title); ?>
+        </h2>
+	<?php if ($params->get('link_titles') && $params->get('access-view')) echo'</a>'; ?>
+	<h6 class="subtitle" property="alternativeHeadline" style="display:none">Untertitle</h6>
+	<?php endif; ?>	
+	
 	<?php // !MENU ?>
 	<?php if ($params->get('show_print_icon') || $params->get('show_email_icon') || $canEdit) : ?>
 	<menu>
@@ -93,7 +102,7 @@ JHtml::_('behavior.tooltip');
 
 <?php // !CONTENT ?>
 <div class="content">
-<?php echo $this->item->introtext; ?>
+<?php echo $this->item->introtext;?>
 
 <?php if ($params->get('show_readmore') && $this->item->readmore) :
 	if ($params->get('access-view')) :

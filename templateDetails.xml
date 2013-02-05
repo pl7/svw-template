@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="2.5" type="template" method="upgrade">
-	<name>Mein Verein</name>
-	<creationDate>2012-08-06</creationDate>
+	<name>SVW</name>
+	<creationDate>2013-01-30</creationDate>
 	<author>Pascal Link</author>
-	<copyright>Copyright © 2012 PL07.de</copyright>
+	<copyright>Copyright © 2013 PL07.de</copyright>
 	<authorEmail>pascal.link@pl07.de</authorEmail>
 	<authorUrl>http://www.pl07.de</authorUrl>
-	<version>1.0.0</version>
-	<description><![CDATA[
-		<h1>templatename</h1>
-		<p><img src="../templates/templatename/template_preview.png" /></p>
-		<p></p>
+	<version>2.0.0</version>
+	<description><![CDATA[	
+    	<img height="275px" style="float:right;margin:1em;" src="../templates/svw/template_preview.jpg" />
+		<h1>Template für die Homeapge des SV Wiesbaden 1899 e.V.</h1>
 		<h2>Module positions</h2>
+		<p>
 		<ol>
 			<li>header</li>
 			<li>menu</li>
 			<li>footer</li>
 			<li>debug</li>
 		</ol>
+		</p>
+		<p>
+		<dl>
+           <dt>SVW Template</dt>
+           <dd>
+              <dl>
+                 <dt>Version</dt><dd>2.0.0</dd>
+                 <dt>Datum</dt><dd>30. Januar 2013</dd>
+              </dl>
+           </dd>
+        <dl>
+		</p>
 		<p>Created by <a href="http://www.pl07.de" target="_blank">Pascal Link | pl07.de</a>.</p>
 	]]></description>
 	
@@ -27,6 +39,7 @@
 		<folder>html</folder>
 		<folder>images</folder>
 		<folder>js</folder>
+		<folder>language</folder>
 		<filename>apple-touch-icon-57x57.png</filename>
 		<filename>apple-touch-icon-72x72.png</filename>
 		<filename>apple-touch-icon-114x114.png</filename>
@@ -35,39 +48,58 @@
 		<filename>favicon.ico</filename>
 		<filename>index.php</filename>
 		<filename>offline.php</filename>
-		<filename>template_preview.png</filename>
-		<filename>template_thumbnail.png</filename>
+		<filename>template_preview.jpg</filename>
+		<filename>template_thumbnail.jpg</filename>
 		<filename>templateDetails.xml</filename>
 	</files>
-	<!--
+	
 	<languages folder="language">
-		<language tag="de-DE">de-DE.tpl_templatename.ini</language>		<language tag="en-GB">en-GB.tpl_templatename.ini</language>
-	</languages>-->
+		<language tag="de-DE">de-DE/de-DE.tpl_svw.ini</language>		
+		<language tag="de-DE">de-DE/de-DE.tpl_svw.sys.ini</language>		
+		<language tag="en-GB">en-GB/en-GB.tpl_svw.ini</language>	
+		<language tag="en-GB">en-GB/en-GB.tpl_svw.sys.ini</language>
+	</languages>
 
 	
 	<positions>
+		<position>position-1</position>
+		<position>position-2</position>
+		<position>content-navigation</position>
+		<position>position-4</position>
+		<position>position-5</position>
+		<position>position-6</position>
 		<position>header</position>
 		<position>menu</position>
 		<position>footer</position>
 		<position>debug</position>
-		<position>kader-gk</position>
-		<position>kader-df</position>
-		<position>kader-mf</position>
-		<position>kader-fw</position>
-		<position>Facebook Like SVW Sidbar</position>
+		<position>SVW Team</position>
+		<position>SVW-CONTENT</position>
+		<position>SVW Pre Content</position>
+		<position>SVW-TEAM-MENU</position>
+		<position>FB-LIKE-SIDEBAR</position>
+		<position>Slideshow</position>
 		<position>fussball-de-widget-00</position>
-		<position>fussball-de-widget-01</position>
-		<position>fussball-de-widget-02</position>
-		<position>fussball-de-widget-03</position>
-		<position>fussball-de-widget-04</position>
-		<position>fussball-de-widget-05</position>
-		<position>fussball-de-widget-06</position>
 	</positions>
 	
 	<config>
 		<fields name="params">
 			<fieldset name="advanced">
-				<field name="FIELD_SPACER_HEADER_DESC" type="spacer" hr="false" />
+				<field default="SV Wiesbaden" label="TPL_SVW_FIELD_SHORT_CLUB_NAME_LABEL" name="short-club-name" type="text" hr="false" description="TPL_SVW_FIELD_SHORT_CLUB_NAME_DESC" filter="string"/>
+				<field default="SVW" label="TPL_SVW_FIELD_CLUB_KEY_LABEL" name="club-key" type="text" hr="false" description="TPL_SVW_FIELD_CLUB_KEY_DESC" filter="string"/>
+
+        		<field
+        			name="svw_area"
+        			type="list"
+        			default="5"
+        			label="TPL_SVW_TEAM_FIELD_AREA_TYPE_LABEL"
+        			description="TPL_SVW_TEAM_FIELD_AREA_TYPE_DESC">
+        			<option value="0">TPL_SVW_TEAM_FIELD_AREA_TYPE_0</option>
+        			<option value="1">TPL_SVW_TEAM_FIELD_AREA_TYPE_1</option>
+        			<option value="2">TPL_SVW_TEAM_FIELD_AREA_TYPE_2</option>
+        			<option value="3">TPL_SVW_TEAM_FIELD_AREA_TYPE_3</option>
+        			<option value="4">TPL_SVW_TEAM_FIELD_AREA_TYPE_4</option>
+        			<option value="5">TPL_SVW_TEAM_FIELD_AREA_TYPE_5</option>
+        		</field>
 			</fieldset>
 		</fields>
 	</config>

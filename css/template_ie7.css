@@ -6,3 +6,7 @@
 ul.sub-right {
 	margin-bottom: 15px;
 }
+
+#fb_box_plugin div.fb-box-plugin div {
+    top: auto;
+}

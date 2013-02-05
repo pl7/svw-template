@@ -14,13 +14,28 @@ $doc = JFactory::getDocument();
 $params = $app->getParams();
 $pageclass = $params->get('pageclass_sfx');
 $tpath = $this->baseurl.'/templates/'.$this->template;
+$templateparams	= $app->getTemplate(true)->params;
 
+// customize head title
+
+if (is_object($app->getMenu()->getActive())){
+
+	$parent_title = $app->getMenu()->getItem($app->getMenu()->getActive()->tree[0])->title;
+
+	if(strlen($parent_title) > 0 && $parent_title !== $this->getTitle()) 
+		$this->setTitle($this->getTitle());
+	else
+		$this->setTitle($app->getCfg( 'sitename' ) . ' - ' . $this->getTitle());
+}
 $this->setGenerator(null);
 
 // load sheets and scripts
 //$doc->addStyleSheet($tpath.'/css/template.css.php?v=1.0.0'); 
 $doc->addStyleSheet($tpath.'/css/reset.css'); 
+$doc->addStyleSheet($tpath.'/css/articles.css'); 
+$doc->addStyleSheet($tpath.'/css/articles_ie8.css'); 
 $doc->addStyleSheet($tpath.'/css/template.css'); 
+$doc->addStyleSheet($tpath.'/css/print.css', 'text/css','print',''); 
 $doc->addScript($tpath.'/js/modernizr.js'); // <- this script must be in the head
 
 // unset scripts, put them into /js/template.js.php to minify http requests
@@ -47,6 +62,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
   <link rel="apple-touch-icon-precomposed" href="<?php echo $tpath; ?>/apple-touch-icon-57x57.png"> <!-- iphone, ipod, android -->
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $tpath; ?>/apple-touch-icon-72x72.png"> <!-- ipad -->
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $tpath; ?>/apple-touch-icon-114x114.png"> <!-- iphone retina -->
+  
   <!--[if lte IE 8]>
     <style> 
       {behavior:url(<?php echo $tpath; ?>/js/PIE.htc);}	
@@ -78,9 +94,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 			
 			echo '<script type="text/javascript" 
             src="http://static.fussball.de/fbdeAPI/js/fbdeAPIFunctions.js?schluessel=1EFDFDC2617005E99366EA8A617815B41EB5CE0D">
-            </script>
-			<link rel="stylesheet" media="screen" href="'.$tpath.'/css/fb_de.css" type="text/css" />
-			<link rel="stylesheet" media="screen" href="'.$tpath.'/css/fb_de_print.css" type="text/css" />';
+            </script>';
         }        
     }
   ?>
@@ -128,6 +142,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
             if(!is_null($images->image_intro) && strlen($images->image_intro) > 0){
                 $image_output = htmlspecialchars($images->image_intro);
             }
+			?><meta http-equiv="last-modified" content="date <?php echo $article->get("publish_up"); ?>" /><?
         } 
 
     ?>	
@@ -154,10 +169,10 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 </head>
 <?php 
     if($is_fb_de_widget){
-        echo '<body onLoad="checkFussballDeWidget()">';
+        echo '<body onLoad="checkFussballDeWidget()"  itemscope itemtype="http://schema.org/WebPage">';
     }
     else {
-        echo '<body>';
+        echo '<body itemscope itemtype="http://schema.org/WebPage">';
     }
     
     if($moduleParams->get('pluginWidth') > 0) :
@@ -182,66 +197,60 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 	}(document, 'script', 'facebook-jssdk'));
 </script>
 <?php endif; ?>
-<div id="wrapper">
-<div id="header">
-  <header class="inheader">
-    <img src="<?php echo $tpath; ?>/images/svw_banner_01.png" title="SV Wiesbaden 1899 e.V" alt="SV Wiesbaden 1899 Logo"> 
-    <h1 style="display:none"><?php echo $app->getCfg('sitename'); ?></h1>
+<section id="wrapper">
+  <header class="noPrint">
+    <img itemprop="image" src="<?php echo $tpath; ?>/images/svw_banner_01.png" title="SV Wiesbaden 1899 e.V" alt="SV Wiesbaden 1899 Logo"> 
+    <h1 class="print"><?php echo $app->getCfg('sitename'); ?></h1>
   </header>
-</div>
   <div id="overall">
-    <nav class="top" id="topMenu">
+	<!-- Navigation -->
+    <nav class="top noPrint" id="mainMenu">
         <header style="display:none"><h2>Hauptnavigation</h2></header>
         <jdoc:include type="modules" name="position-1" />
-        <jdoc:include type="modules" name="position-2" />
-        <jdoc:include type="modules" name="position-3" />
     </nav>
-    <!-- Navigation -->
     <div id="main">
         <div class="inmain">			
-            <section id="content">
+            <section id="content" class="<?php if($pageclass == 'cat-all') echo 'svw-news-all'; else echo $pageclass;?>">
                 <header style="display:none"><h2><?php echo $doc->getTitle(); ?></h2></header>
-                	<div id="breadcrumbs">
-                    	<jdoc:include type="modules" name="position-4" />
-                    </div>
-                <jdoc:include type="component" />
-                    <jdoc:include type="modules" name="last-news" />
 
-                    <jdoc:include type="modules" name="kader-gk" />
-                    <jdoc:include type="modules" name="kader-df" />
-                    <jdoc:include type="modules" name="kader-mf" />
-                    <jdoc:include type="modules" name="kader-fw" />
+                	<jdoc:include type="modules" name="position-4" />
+                    
+				    <jdoc:include type="modules" name="svw-team-menu" />
+									
+                    <?php if ($view=="category") : ?>
+                    	<jdoc:include type="modules" name="Slideshow" />
+                	<?php endif; ?>
+                    
+					<jdoc:include type="modules" name="content-navigation" />
+					
+                    <jdoc:include type="modules" name="SVW Pre Content" />
+					
+					<jdoc:include type="component" />
+					
+                    <jdoc:include type="modules" name="svw-content" />
+
+                    <jdoc:include type="modules" name="SVW Team" />
 
                     <jdoc:include type="modules" name="fussball-de-widget-00" />
-                    <jdoc:include type="modules" name="fussball-de-widget-01" />
-                    <jdoc:include type="modules" name="fussball-de-widget-02" />
-                    <jdoc:include type="modules" name="fussball-de-widget-03" />
-                    <jdoc:include type="modules" name="fussball-de-widget-04" />
-                    <jdoc:include type="modules" name="fussball-de-widget-05" />
-                    <jdoc:include type="modules" name="fussball-de-widget-06" />
             </section>
-            <aside>
+            <aside class="noPrint">
                 <header style="display:none"><h2>Sidebar</h2></header>
-                <section id="position-5">
-                    <nav class="top" id="subMenu">
-                        <jdoc:include type="modules" name="position-5" />
-                    </nav>
-                </section>
-                <section id="position-6">
-                    <jdoc:include type="modules" name="position-6" />
-                </section>
-                <jdoc:include type="modules" name="Facebook Like SVW Sidbar" />
+				<nav id="subMenu">
+					<jdoc:include type="modules" name="position-5" />
+				</nav>
+                <jdoc:include type="modules" name="FB-LIKE-SIDEBAR" />
+				<jdoc:include type="modules" name="position-6" />
             </aside>
     	</div>
-    </div>
+    </div><!-- wrapper -->
     <jdoc:include type="message" />
   </div>  
-</div>
-  <footer id="footer" class="group">
+</section> 
+  <footer id="footer" class="group noPrint">
         <div class="infooter">
             <section>
                 <header style="display:none"><h2>Homepage Informationen</h2></header>
-        		<p class="center">Created & Designed by PL07 &#169; 2012 &#124; All rights reserved.</p>
+        		<p class="center">Created & Designed by <a itemprop="author" href="http://plus.google.com/111996881846771358377/posts">PL07</a> &#169; 2012 &#124; All rights reserved.</p>
         		<p class="center">
         			<a href="#top">zum Seitenanfang</a>
         		</p>
@@ -249,7 +258,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
         </div>
 	</footer>
   <jdoc:include type="modules" name="debug" />
-<? /* <script type="text/javascript" src="<?php echo $tpath; ?>/js/jquery-latest.min.js"></script> */ ?>
+  <script type="text/javascript" src="<?php echo $tpath; ?>/js/svwNews.js"></script> 
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript">
   $(function() {
@@ -271,8 +280,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     
     // iPad
     var isiPad = navigator.userAgent.match(/iPad/i) != null;
-    if (isiPad) $('#menu ul').addClass('no-transition');
-
+    if (isiPad) $('#menu ul').addClass('no-transition');    
  </script>
 	<?php if($moduleParams->get('pluginWidth') > 0) :?>
 		<!-- Google Analytics tracking -->

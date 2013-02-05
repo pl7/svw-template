@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="SVW News Blog with Facebook Integration" option="SVW Blog">
+	<layout title="SVW Turniere Blog" option="SVW Turnier Blog">
 		<help
 			key = "JHELP_MENUS_MENU_ITEM_ARTICLE_CATEGORY_BLOG"
 		/>
@@ -31,7 +31,7 @@
 				type="hidden"
 				default="blog"
 			/>
-
+			
 			<field name="show_category_title" type="list"
 				label="JGLOBAL_SHOW_CATEGORY_TITLE"
 				description="JGLOBAL_SHOW_CATEGORY_TITLE_DESC"

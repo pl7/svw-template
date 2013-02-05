@@ -8,3 +8,15 @@ body {background-color:#fff; color:#000; font:normal normal normal 75%/125% aria
 /* LAYOUT
 *********************************************/
 #overall {height:100%; margin:0 auto; text-align:left; width:100%;}
+
+.noPrint { display:none; }
+
+.print { display: block; }
+
+section#content { width: 100%; }
+
+.timetable td {color: black !important; }
+
+article header {color: black; background: none;}
+
+.eventTimeTable .dateTr td { border-bottom: 1px solid #000; }
