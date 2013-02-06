@@ -2,8 +2,6 @@
 
 /*
 Theme Name: PL07
-Theme URI: http://theme.pl07.de
-Description: WordPress Template meines Blogs auf http://blog.pl07.de
 Author: Pascal Link
 Author URI: http://www.pl07.de
 */
@@ -220,6 +218,13 @@ aside >* {
 
 /* ADDITIONAL ARTICLE STYLE
 *********************************************/
+#blog p {
+    font-size: 12px;
+}
+#blog article header * {
+    font-size: 1em;
+}
+
 .ac > article,
 .ac > header {
 	width: 100%;
@@ -379,11 +384,11 @@ nav > ul ul {
 	/* border-radius: 3px; */    
 	background: #00004C;
 	opacity: 0;
-	-webkit-transition: all .2s ease-in-out;
-	-moz-transition: all .2s ease-in-out;
-	-ms-transition: all .2s ease-in-out;
-	-o-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
+	-webkit-transition:    top .2s ease-in-out, left .2s ease-in-out, opacity .2s ease-in-out;
+	-moz-transition:       top .2s ease-in-out, left .2s ease-in-out, opacity .2s ease-in-out;
+	-ms-transition:        top .2s ease-in-out, left .2s ease-in-out, opacity .2s ease-in-out;
+	-o-transition:         top .2s ease-in-out, left .2s ease-in-out, opacity .2s ease-in-out;
+	transition:            top .2s ease-in-out, left .2s ease-in-out, opacity .2s ease-in-out;
 	_margin: 0; /*IE6 only*/  
 }
 
@@ -394,13 +399,15 @@ nav li:hover > ul {
 	opacity: 1;
 }
 
+nav > ul ul li:hover ul {
+    left: 148px;
+}
 nav > ul ul ul {
 	top: -2px;
-	left: 148px;
+	left: 200px;
 	margin: 0 0 0 20px;
 	_margin: 0; /*IE6 only*/
 }
-
 nav > ul ul li {
 	display: block;
 	float: none;
@@ -976,6 +983,11 @@ h1.player-action-name {
     width: 100%;
 }
 
+/* !ANHÄNGE
+*/
+.svwAttachmentsList table {border: none;}
+.svwAttachmentsList a {font-weight: bold;}
+.svwAttachmentsList img {margin-right: 0.5em;}
 /* !EDITOR 
 */
 #adminForm .formelm-buttons button {
@@ -1054,3 +1066,4 @@ h1.player-action-name {
 .ac menu {
     border: none;
 }
+
