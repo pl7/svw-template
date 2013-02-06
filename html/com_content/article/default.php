@@ -94,9 +94,9 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 			<?php	$title = $this->escape($this->item->parent_title);
 			$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->parent_slug)).'">'.$title.'</a>';?>
 			<?php if ($params->get('link_parent_category') and $this->item->parent_slug) : ?><? /*! PARENT CATEGORY */ ?>
-				<?php echo JText::sprintf('COM_CONTENT_PARENT', $url); ?>
+				<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_PARENT', $url); ?>
 			<?php else : ?>
-				<?php echo JText::sprintf('COM_CONTENT_PARENT', $title); ?>
+				<?php echo JText::sprintf('TPL_SVW_CONTENT_PARENT', $title); ?>
 			<?php endif; ?>
 		<?php endif; ?>
 	</li><li>
@@ -104,21 +104,21 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 		<?php 	$title = $this->escape($this->item->category_title);
 		$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catslug)).'">'.$title.'</a>';?>
 		<?php if ($params->get('link_category') and $this->item->catslug) : ?>
-			<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $url); ?>
+			<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_CATEGORY', $url); ?>
 		<?php else : ?>
-			<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $title); ?>
+			<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_CATEGORY', $title); ?>
 		<?php endif; ?>
 		<?php endif; ?>	
 	</li>	
 	<?php if ($params->get('show_create_date')) : ?><? /*! CREATE DATE */ ?>
 		<li class="create">
-		<?php echo JText::sprintf('COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_LC2'))); ?>
+		<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_LC2'))); ?>
 		</li>
 		<li itemprop="dateCreated" style="display:none"><?php echo $this->item->created; ?></li>
 	<?php endif; ?>
 	<?php if ($params->get('show_modify_date')) : ?><? /*! MODIFY */ ?>
 		<li class="modified">
-		<?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>	
+		<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>	
 		</li>
 		<li itemprop="dateModified" style="display:none"><?php echo $this->item->modified; ?></li>
 	<?php endif; ?>
@@ -137,7 +137,7 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 			$item = $menu->getItems('link', $needle, true);
 			$cntlink = !empty($item) ? $needle . '&Itemid=' . $item->id : $needle;
 		?>
-			<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', JHtml::_('link', JRoute::_($cntlink), $author)); ?>
+			<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_WRITTEN_BY', JHtml::_('link', JRoute::_($cntlink), $author)); ?>
 		<?php else: ?>
 			<?php echo $author; ?>
 		<?php endif; ?>
@@ -146,7 +146,7 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 	<?php endif; ?>
 	<?php if ($params->get('show_hits')) : ?>
 		<li class="hits">
-		<?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?>
+		<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?>
 		</li>
 	<?php endif; ?>
 <?php endif; ?>
