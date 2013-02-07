@@ -8,7 +8,9 @@
 
 // no direct access
 defined('_JEXEC') or die;
+if($count > 0) :
 ?>
+
 <div id="breadcrumbs" itemprop="breadcrumb">
     <div class="breadcrumbs<?php echo $moduleclass_sfx; ?>">
     <?php if ($params->get('showHere', 1))
@@ -44,3 +46,4 @@ defined('_JEXEC') or die;
     endfor; ?>
     </div>
 </div>
+<?php endif; ?>
