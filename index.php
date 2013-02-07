@@ -210,10 +210,9 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     </nav>
     <div id="main">
         <div class="inmain">			
-            <section id="content" class="<?php if($pageclass == 'cat-all') echo 'svw-news-all'; else echo $pageclass;?>">
-                <header style="display:none"><h2><?php echo $doc->getTitle(); ?></h2></header>
-
-                	<jdoc:include type="modules" name="position-4" />
+            <section id="content" class="<?php if($pageclass == 'cat-all') echo 'svw-news-all'; else echo $pageclass;?>">	    	 
+			
+					<jdoc:include type="modules" name="position-4" />
                     
 				    <jdoc:include type="modules" name="svw-team-menu" />
 									
@@ -224,11 +223,11 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 					<jdoc:include type="modules" name="content-navigation" />
 					
                     <jdoc:include type="modules" name="SVW Pre Content" />
-					
+					<?php if ($view=="category") : ?><div id="blog"><?php endif; ?>
 					<jdoc:include type="component" />
 					
                     <jdoc:include type="modules" name="svw-content" />
-
+					<?php if ($view=="category") : ?></div><?php endif; ?>
                     <jdoc:include type="modules" name="SVW Team" />
 
                     <jdoc:include type="modules" name="fussball-de-widget-00" />
