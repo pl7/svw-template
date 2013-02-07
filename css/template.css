@@ -363,7 +363,8 @@ nav a {
 	font-size: 12px;
 }
 
-nav li:hover > a {
+nav li:hover > a,
+nav li.current.active > a {
 	background: #FF4A00;
 	color: #fff;
 }
