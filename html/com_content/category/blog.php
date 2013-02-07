@@ -30,7 +30,7 @@ $canEdit = JFactory::getUser()->authorise('core.edit', 'com_languages');
 <section class="contentMenu" id="newsSelection">
     <nav class="top noPrint">
     	<ul id="menu" class="menu">
-            <li class="current active"><a href="#" onclick="selectCategory('svw-news-all')">Alle</a></li>
+            <li class=""><a href="#" onclick="selectCategory('svw-news-all')">Alle</a></li>
             <li class=""><a href="#" onclick="selectCategory('svw-news-profis')">1. Mannschat</a></li>
             <li class=""><a href="#" onclick="selectCategory('svw-news-reserve')">2. Mannschat</a></li>
             <li class=""><a href="#" onclick="selectCategory('svw-news-jugend')">Jugend</a></li>
