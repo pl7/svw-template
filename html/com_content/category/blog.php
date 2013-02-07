@@ -38,7 +38,7 @@ $canEdit = JFactory::getUser()->authorise('core.edit', 'com_languages');
     </nav>
 </section>
 <?php endif; ?>
-<section class="page-item ac image-left <?php echo $this->pageclass_sfx;?>" id="blog">
+<section class="page-item ac image-left <?php echo $this->pageclass_sfx;?>">
 
     <?php if ($this->params->get('show_page_heading', 1)) : ?>
     <header>

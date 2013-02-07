@@ -221,7 +221,11 @@ aside >* {
 #blog p {
     font-size: 12px;
 }
-#blog article header * {
+
+#blog .cat-all article header *,
+#blog .cat-profis article header *,
+#blog .cat-reserve article header *,
+#blog .cat-jugend article header * {
     font-size: 1em;
 }
 
