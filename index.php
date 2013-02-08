@@ -20,12 +20,46 @@ $templateparams	= $app->getTemplate(true)->params;
 
 if (is_object($app->getMenu()->getActive())){
 
+    /*
+        parent title = pt
+        short club name = scn
+        document title = dt
+        
+    */
 	$parent_title = $app->getMenu()->getItem($app->getMenu()->getActive()->tree[0])->title;
-
-	if(strlen($parent_title) > 0 && $parent_title !== $this->getTitle()) 
-		$this->setTitle($this->getTitle());
-	else
-		$this->setTitle($app->getCfg( 'sitename' ) . ' - ' . $this->getTitle());
+	$shortClubName = $templateparams->get("short-club-name");
+	$currentMenuName = JSite::getMenu()->getActive()->title;
+	$currentDocTitle = $this->getTitle();
+//	$docParent = $doc->parent->getTitle();
+	$browseTitle = "";
+	// pt exist UND pt IST NICHT dc
+	if(strlen($parent_title) > 0 && strlen($shortClubName) > 0) {
+	   // dt enthält pt 
+	   if(strpos($parent_title,$currentDocTitle)!==false) {
+	       // dt enthält scn
+	       if(strpos($shortClubName,$currentDocTitle)!==false){
+    	       $browseTitle = $currentDocTitle;
+	       }
+	       // dt enhält nicht scn
+	       else {
+    	       $browseTitle = $shortClubName.' - '.$currentDocTitle;
+	       }
+	   } // dt enthält nicht pt und pt enhält scn
+       elseif(strpos($parent_title,$shortClubName)!==false) {
+           if(strpos($currentDocTitle,$shortClubName)!==false) {
+               $browseTitle = $parent_title.' - '.$this->getTitle();
+           } // dt enthält nicht pt und pt enhält nicht scn
+           else{
+               $browseTitle = $shortClubName.' - '.$parent_title.' - '.$currentDocTitle;
+           }   
+       } else {
+           $browseTitle = $shortClubName.' - '.$parent_title.' - '.$currentDocTitle;
+       }
+    }
+	else {
+    	$browseTitle = $app->getCfg( 'sitename' ) . ' - ' . $this->getTitle();
+	}
+	$this->setTitle($browseTitle);
 }
 $this->setGenerator(null);
 
