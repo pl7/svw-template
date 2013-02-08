@@ -1071,4 +1071,11 @@ h1.player-action-name {
 .ac menu {
     border: none;
 }
-
+.single-page .ac .image-feat {
+    float: none;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+.single-page .ac .image-feat img {
+	width: 500px;
+}
