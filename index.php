@@ -153,17 +153,25 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
         $option = JRequest::getCmd('option');
         $view = JRequest::getCmd('view');
         $og_desc_output = "SV Wiesbaden ist der Traditionsverein in der hessischen Landeshauptstadt Wiesbaden.";
-        $og_type_output = "sports_team";
+        $og_type_output = "website";
         $og_title_output = $doc->getTitle();
         $image_output = "/images/icons/svw_logo_traditon_aus_leidenschaft.jpg";
-        
+        if ($view=="category") {
+		   $og_type_output = "blog";         
+		}
         if ($option=="com_content" && $view=="article") {
             $ids = explode(':',JRequest::getString('id'));
             $article_id = $ids[0];
             $article =& JTable::getInstance("content");
+			
             $article->load($article_id);
             $images = json_decode($article->get("images"));
-            $og_type_output = "article";
+            $modSvwTeam = JModuleHelper::getModule('mod_svw_team');
+			if ($params->get('show_author')){
+				$og_type_output = "article";
+			} else {
+				$og_type_output = "website";
+			}
             if(strlen($article->get("metadesc")) > 0){
                 $og_desc_output = $article->get("metadesc");
             } elseif(strlen($article->get("introtext")) > 0){
@@ -176,7 +184,10 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
             if(!is_null($images->image_intro) && strlen($images->image_intro) > 0){
                 $image_output = htmlspecialchars($images->image_intro);
             }
-			?><meta http-equiv="last-modified" content="date <?php echo $article->get("publish_up"); ?>" /><?
+			?>
+			<meta http-equiv="last-modified" content="date <?php echo $article->get("publish_up"); ?>" />
+			<meta property="article:published_time"  content="<?php echo JHTML::_('date',  $article->get("publish_up"), JText::_('Y-m-d') ); ?>">
+			<?
         } 
 
     ?>	
