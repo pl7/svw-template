@@ -90,7 +90,6 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
   <META NAME="Content-Language" CONTENT="de">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> <!-- mobile viewport -->
   <link rel="stylesheet" media="only screen and (max-width: 768px)" href="<?php echo $tpath; ?>/css/tablet.css" type="text/css" />
-  
   <link rel="stylesheet" media="only screen and (min-width: 320px) and (max-width: 480px)" href="<?php echo $tpath; ?>/css/phone.css" type="text/css" />
   <!--[if IEMobile]><link rel="stylesheet" media="screen" href="<?php echo $tpath; ?>/css/phone.css" type="text/css" /><![endif]--> <!-- iemobile -->
   <link rel="apple-touch-icon-precomposed" href="<?php echo $tpath; ?>/apple-touch-icon-57x57.png"> <!-- iphone, ipod, android -->
@@ -256,9 +255,9 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     <div id="main">
         <div class="inmain">			
             <section id="content" class="<?php if($pageclass == 'cat-all') echo 'svw-news-all'; else echo $pageclass;?>">
-                <header style="display:none"><h2><?php echo $doc->getTitle(); ?></h2></header>
 
-                	<jdoc:include type="modules" name="position-4" />
+			
+					<jdoc:include type="modules" name="position-4" />
                     
 				    <jdoc:include type="modules" name="svw-team-menu" />
 									
@@ -269,11 +268,11 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 					<jdoc:include type="modules" name="content-navigation" />
 					
                     <jdoc:include type="modules" name="SVW Pre Content" />
-					
+					<?php if ($view=="category") : ?><div id="blog"><?php endif; ?>
 					<jdoc:include type="component" />
 					
                     <jdoc:include type="modules" name="svw-content" />
-
+					<?php if ($view=="category") : ?></div><?php endif; ?>
                     <jdoc:include type="modules" name="SVW Team" />
 
                     <jdoc:include type="modules" name="fussball-de-widget-00" />
