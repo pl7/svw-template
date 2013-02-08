@@ -254,8 +254,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     </nav>
     <div id="main">
         <div class="inmain">			
-            <section id="content" class="<?php if($pageclass == 'cat-all') echo 'svw-news-all'; else echo $pageclass;?>">
-
+            <section id="content" class="<?php if($pageclass == 'cat-all') echo 'svw-news-all'; else echo $pageclass;?>">	    	 
 			
 					<jdoc:include type="modules" name="position-4" />
                     
