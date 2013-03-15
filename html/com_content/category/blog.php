@@ -30,15 +30,16 @@ $canEdit = JFactory::getUser()->authorise('core.edit', 'com_languages');
 <section class="contentMenu" id="newsSelection">
     <nav class="top noPrint">
     	<ul id="menu" class="menu">
-            <li class="current active"><a href="#" onclick="selectCategory('svw-news-all')">Alle</a></li>
-            <li class=""><a href="#" onclick="selectCategory('svw-news-profis')">1. Mannschat</a></li>
-            <li class=""><a href="#" onclick="selectCategory('svw-news-reserve')">2. Mannschat</a></li>
-            <li class=""><a href="#" onclick="selectCategory('svw-news-jugend')">Jugend</a></li>
+            <li class=""><a href="#newsSelection" onclick="selectCategory('svw-news-all')">Alle</a></li>
+            <li class=""><a href="#newsSelection" onclick="selectCategory('svw-news-profis')">1. Mannschaft</a></li>
+            <li class=""><a href="#newsSelection" onclick="selectCategory('svw-news-reserve')">2. Mannschaft</a></li>
+            <li class=""><a href="#newsSelection" onclick="selectCategory('svw-news-jugend')">Jugend</a></li>
+            <li class=""><a href="#newsSelection" onclick="selectCategory('svw-news-general')">Allgemein</a></li>
         </ul>					
     </nav>
 </section>
 <?php endif; ?>
-<section class="page-item ac image-left <?php echo $this->pageclass_sfx;?>" id="blog">
+<section class="page-item ac image-left <?php echo $this->pageclass_sfx;?>">
 
     <?php if ($this->params->get('show_page_heading', 1)) : ?>
     <header>

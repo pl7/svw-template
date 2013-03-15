@@ -28,25 +28,31 @@ $templateparams	= $app->getTemplate(true)->params;
             <header>
                 <h1 itemprop="name"><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
             </header>
-            <div class="team-image-preview noPrint">
-                <?php  if (isset($images->image_intro) and !empty($images->image_intro)) : ?> 
-                    	<img id="<?php echo $params->get('team_key')."-team-picture"; ?>" 
-                    		<?php if ($images->image_intro_caption) echo 'title="'.htmlspecialchars($images->image_intro_caption) .'"'; ?>
-                    		src="<?php echo htmlspecialchars($images->image_intro); ?>" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>"
-                    		width="75%" itemprop="image" onclick="toggleFullSizeImage(this)"/>
-                <?php else : ?>
-                    <img class="team-preview" height="150px" itemprop="image" src="/images/default_team.png">
-                <?php endif; ?>
-                
-                <? /*! FACEBOOK LIKE BUTTON */ ?>
-                <?php if(!is_null($params->get('fb_like')) && $params->get('fb_like') == 1) : ?>
-                <div class="noPrint">
-                    <div class="fb-like">
-                        <fb:like href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" send="true" width="450" show_faces="false"></fb:like>
-                    </div>
-                </div>
-                <?php endif; ?>
-            </div>
+			<?php if ($params->get('show_team_pic')): ?>
+				<div class="team-image-preview noPrint">
+					<?php  if (isset($images->image_intro) and !empty($images->image_intro)) : ?> 
+						<img id="<?php echo $params->get('team_key')."-team-picture"; ?>" 
+							<?php if ($images->image_intro_caption) echo 'title="'.htmlspecialchars($images->image_intro_caption) .'"'; ?>
+							src="<?php echo htmlspecialchars($images->image_intro); ?>" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>"
+							width="75%" itemprop="image" onclick="toggleFullSizeImage(this, '<?php echo $params->get('team_key');?>')"/>
+							
+							<?php if ($params->get('team_pic_caption')):
+								echo '<p  id="'.$params->get('team_key').'"-team-picture" class="team-pic-caption">'.$params->get('team_pic_caption').'</p>';
+							endif; ?>
+					<?php else : ?>
+						<img class="team-preview" height="150px" itemprop="image" src="/images/default_team.png">
+					<?php endif; ?>
+					
+					<? /*! FACEBOOK LIKE BUTTON */ ?>
+					<?php if(!is_null($params->get('fb_like')) && $params->get('fb_like') == 1) : ?>
+    					<div class="noPrint">
+    						<div class="fb-like">
+    							<fb:like href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>" send="true" width="450" show_faces="false"></fb:like>
+    						</div>
+    					</div>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
             <div class="content">
                 <?php echo $this->item->introtext; ?>
             </div>

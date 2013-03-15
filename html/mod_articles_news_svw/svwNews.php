@@ -26,13 +26,13 @@ $canEdit = JFactory::getUser()->authorise('core.edit', 'com_languages');
     	<?php if ($item->parent_id != 1) : ?>
     		<?php $title = $item->parent_title;
     		$url = '<a href="' . JRoute::_(ContentHelperRoute::getCategoryRoute($item->parent_id)) . '">' . $title . '</a>'; ?>
-    		<?php echo JText::sprintf('COM_CONTENT_PARENT_SHORT', $url); ?>
+    		<?php echo JText::sprintf('TPL_SVW_COM_CONTENT_PARENT_SHORT', $url); ?>
     	<?php endif; ?>
     	
         <?php if($item->parent_id != 1) : ?><img src="./media/system/images/arrow.png"/><?php endif; ?>
         
         <?php  $title = $item->category_title;
-    	       echo JText::sprintf('COM_CONTENT_CATEGORY_SHORT', $title); ?>
+    	       echo JText::sprintf('TPL_SVW_COM_CONTENT_CATEGORY_SHORT', $title); ?>
     </h6>    
     
     <?php /*!IMAGE */  ?>

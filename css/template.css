@@ -33,6 +33,7 @@ Author URI: http://www.pl07.de
 */
 /* This next line is critical to the overall framework. Remove at your own peril */
 * {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+#boxplus * {-webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box;}
 
 /* HTML and Body */
 html { overflow-y:scroll; margin-bottom:1px;height:100%; font-size: 62.5%;}
@@ -110,7 +111,7 @@ table tbody tr.even, table tbody tr.alt {background: #f9f9f9;}
 table tbody tr:nth-child(even) {background: #f9f9f9;}
 table tbody tr td {color: #333; padding: 9px 10px; vertical-align: top; border: none;}
 
-.print, .disable, .structure {display:none;}
+.print, .disable, .structure {display:none !important;}
 .noFloat {float: none; clear: both;}
 /* LAYOUT
 *********************************************/
@@ -130,7 +131,8 @@ body>section, body>footer, body>header {
     width:984px; 
     background-color: none; 
 }
-body>section, body>footer {
+
+body>section {
     background: #ECECEC; 
     text-align:left;  
     padding: 0.25em 0.75em 1.5em 0.75em; 
@@ -225,8 +227,13 @@ aside >* {
 #blog .cat-all article header *,
 #blog .cat-profis article header *,
 #blog .cat-reserve article header *,
+#blog .cat-general article header *,
 #blog .cat-jugend article header * {
     font-size: 1.1em;
+}
+
+#blogTurnament article footer {
+    display: none;
 }
 
 .ac > article,
@@ -264,24 +271,44 @@ aside >* {
      background: none; 
 }
 
+/* !SVW NEWS ALL 
+*/
 .svw-news-all .cat-profis, 
 .svw-news-all .cat-jugend, 
+.svw-news-all .cat-general, 
 .svw-news-all .cat-reserve {
     display: none;
 }
+/* !SVW NEWS Jugend
+*/
 .svw-news-jugend .cat-profis, 
 .svw-news-jugend .cat-all, 
+.svw-news-jugend .cat-general,
 .svw-news-jugend .cat-reserve {
     display: none;
 }
+/* !SVW NEWS Profis
+*/
 .svw-news-profis .cat-all, 
 .svw-news-profis .cat-jugend, 
+.svw-news-profis .cat-general,
 .svw-news-profis .cat-reserve {
     display: none;
 }
+/* !SVW NEWS Reserve
+*/
 .svw-news-reserve .cat-profis, 
 .svw-news-reserve .cat-jugend, 
+.svw-news-reserve .cat-general,
 .svw-news-reserve .cat-all {
+    display: none;
+}
+/* !SVW NEWS Reserve
+*/
+.svw-news-general .cat-profis, 
+.svw-news-general .cat-jugend, 
+.svw-news-general .cat-all,
+.svw-news-general .cat-reserve  {
     display: none;
 }
 /* !SELECTED NEWS
@@ -296,6 +323,65 @@ aside >* {
 
 .infooter { text-align: center;}
 
+body>footer {
+    border-top: 3px solid black;
+    color: white;
+    background: rgb(0,0,74); 
+    text-align:left;  
+    padding: 0.25em 0.75em 1.5em 0.75em;     
+}
+body>footer a {
+    color: white;
+    text-decoration: underline;
+}
+body>footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#footer .imprint {
+    clear: both;
+}
+
+
+/* !WEBLINKS
+*********************************************/
+
+#footer .weblinks {
+    float: left;
+    margin-right: 1em;
+}
+
+#footer .weblinks * {
+    text-align: left;
+}
+
+ 
+#footer .weblinks ul {
+    list-style: none;
+}
+#footer .weblinks h4 {
+    color: white;
+    margin-bottom: 0.25em;
+    font-size: 1em;
+}
+#footer .weblinks li a,
+#footer .weblinks li a.svw {
+    text-decoration: none;
+    font-size: 0.9em !important;
+}
+
+#footer .weblinks li a:after {
+    padding-left: 0.5em;
+    content: "<";
+    color: rgb(0,0,74);    
+}
+#footer .weblinks li a:hover:after {
+    padding-left: 0.5em;
+    content: "<";
+    color: white;
+    font-weight: bold;
+}
 /*! NAVIGATION
 *********************************************/
 
@@ -368,7 +454,9 @@ nav a {
 }
 
 nav li:hover > a,
-nav li.current.active > a {
+nav li.current.active > a,
+nav li.active.parent > a,
+nav li.active.deeper.parent > a {
 	background: #FF4A00;
 	color: #fff;
 }
@@ -1071,6 +1159,33 @@ h1.player-action-name {
 .ac menu {
     border: none;
 }
+
+#page-article .image-feat, 
+#page-team-start .img-fulltext-none /* OLD */
+{
+    width: 100%;
+    text-align: center;
+}
+
+#page-article .image-feat img, 
+#page-team-start .img-fulltext-none img /* OLD */  {
+    width: 75%;
+}
+
+#page-article img.fullsize {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    padding: 100px;
+    background: rgba(0,40,100, 0.8);
+}
+
+#page-article .image-feat .img-caption-text {
+    text-align: center;
+    padding-top: 0.5em;
+}
 .single-page .ac .image-feat {
     float: none;
     margin-bottom: 0.5em;
@@ -1078,4 +1193,28 @@ h1.player-action-name {
 }
 .single-page .ac .image-feat img {
 	width: 500px;
+}
+
+/* ! ====== Sidebar ======= */
+aside .info
+{
+    width: 245px;
+    border: 1px solid rgb(0,0,74);
+	
+    background: white;
+
+	-webkit-box-shadow: -8px -22px 10px -20px #CCC, -8px 22px 10px -20px #CCC;
+	-moz-box-shadow:    -8px -22px 10px -20px #CCC, -8px 22px 10px -20px #CCC;
+	box-shadow:         -8px -22px 10px -20px #CCC, -8px 22px 10px -20px #CCC;
+	
+	
+}
+aside .info .content p {
+    padding: 0.25em 0.5em;
+}
+aside .info h3 {
+    background: rgb(0,0,74);
+    color: white;
+    margin: 0;
+    padding: 0.25em 0.5em;
 }

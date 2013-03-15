@@ -10,6 +10,7 @@
 .ac { overflow: auto; padding: 10px 0; }
 .ac > * { float: left; border-bottom: 1px dotted #ddd; padding: 0 20px 10px 20px; margin-top: 20px; }
 .ac > *:last-child { border-bottom: none; }
+.ac > article { padding: 0 20px; } /* avoid dopple padding by [section > article] on single page items (like blog articles) */
 /* Category */
 .ac .category { text-transform: uppercase; border-bottom: 1px solid #ccc; margin: 0 0 10px 0; padding-bottom: 3px; color: #666; }
 .ac .category a { color: rgb(102, 102, 102); }
@@ -17,7 +18,7 @@
 .ac header h2, .ac header h3, .ac header h4, .ac header h5, .ac header h6 {margin: 0 0 5px 0 !important;}
 .ac h2.title, .ac h3.title, .ac h4.title, .ac h5.title, .ac h6.title {color: rgb(255,74,0);}.ac h5.subtitle, .ac h6.subtitle { color: #666;}
 .ac p { text-align: justify; }.ac.three-column p { text-align: left; }
-.ac p, .ac table, .ac blockquote, .ac ul, .ac ol { overflow: hidden; }
+/*.ac p, .ac table, .ac blockquote, .ac ul, .ac ol { overflow: hidden; }*/
 /* Featured Image and Captions */
 .ac .image-feat { position: relative; float: left; margin: 0 15px 5px 0; }
 .ac .image-feat p.caption { color: #999; line-height: 1.1; font-size: 11px; font-size: 1.1rem; padding: 4px 0 0 2px; margin: 0; }

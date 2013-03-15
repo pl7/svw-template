@@ -5,18 +5,100 @@
 html {height:100%; margin-bottom:1px; overflow-y:scroll;}
 body {background-color:#fff; color:#000; font:normal normal normal 75%/125% arial,sans-serif; height:100%; text-align:center;}
 
+h3 { font-size: 1.4em; margin: 0.25em 0.5em;}
+h4 { font-size: 1.3em; margin: 0.25em 0.5em;}
+
 /* LAYOUT
 *********************************************/
 #overall {height:100%; margin:0 auto; text-align:left; width:100%;}
 
-.noPrint { display:none; }
+.noPrint { visibility: hidden; }
 
-.print { display: block; }
+aside.noPrint,
+header.noPrint,
+nav.noPrint
+{display: none; }
 
-section#content { width: 100%; }
+.print { visibility: visible; }
+
+#main .inmain>section { width: 100%; float: none;}
 
 .timetable td {color: black !important; }
 
 article header {color: black; background: none;}
 
-.eventTimeTable .dateTr td { border-bottom: 1px solid #000; }
+/* */
+.svwDate.month {
+    text-align: center;
+}
+.svwDate.date {
+    text-align: center;
+}
+.svwDate.day {
+    text-align: center;
+}
+.svwDateTd {
+    padding: 0 0.5em;
+    width: 4em;
+    vertical-align: top;
+}
+img.location {
+    height: 1em;
+}
+.eventText h5 {
+    font-size: 1.4em;
+    margin: 0.2em 0;
+}
+.beginLabel, .endLabel, .meetingLabel, .game-result-label {
+    padding: 0.2em;
+    text-align: center;
+    width: 7em;
+}
+#friendlies table {
+    width: 100%;
+    border-bottom: 1px dashed #ccc;
+    margin-top: 1em;
+}
+
+.eventTimeTable h4 img
+{
+    height: 20px;
+    margin-right: 0.5em;
+}
+
+.month {
+    border: 1px solid grey;
+    border-bottom: none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    background-color: rgb(255,74,0);
+    color: white;
+    padding: 2px 10px;
+}
+.date {
+    
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;    
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 5px 10px;
+    
+}
+.day {
+    border: 1px solid grey;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: #858585;
+    padding: 2px 10px;
+}
+.startEndTime, .meetingTime {
+    text-align: right;
+}
+
+.result-home, .result-guest {
+    font-size: 2em;
+    border: 1px solid black;
+    padding: 0.5em;
+    margin: 0.2em;
+}

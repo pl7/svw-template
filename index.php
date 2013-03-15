@@ -16,6 +16,9 @@ $pageclass = $params->get('pageclass_sfx');
 $tpath = $this->baseurl.'/templates/'.$this->template;
 $templateparams	= $app->getTemplate(true)->params;
 
+$option = JRequest::getCmd('option');
+$view = JRequest::getCmd('view');
+        
 // customize head title
 
 if (is_object($app->getMenu()->getActive())){
@@ -58,7 +61,7 @@ if (is_object($app->getMenu()->getActive())){
     }
 	else {
     	$browseTitle = $app->getCfg( 'sitename' ) . ' - ' . $this->getTitle();
-	}
+	}	
 	$this->setTitle($browseTitle);
 }
 $this->setGenerator(null);
@@ -83,6 +86,18 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 <!--[if IE 7]>    <html  xmlns:fb="http://ogp.me/ns/fb#" class="no-js ie7 oldie" lang="<?php echo $this->language; ?>"> <![endif]-->
 <!--[if IE 8]>    <html  xmlns:fb="http://ogp.me/ns/fb#" class="no-js ie8 oldie" lang="<?php echo $this->language; ?>"> <![endif]-->
 <!--[if gt IE 8]><!-->  <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js" lang="<?php echo $this->language; ?>"> <!--<![endif]-->
+
+<?php
+$head_prefix = '';
+if($view == 'article' ) {
+    $head_prefix = 'og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"';    
+} elseif ($view == 'category'){
+    $head_prefix = 'og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# blog: http://ogp.me/ns/blog#';
+} else {
+    $head_prefix = 'prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#"';    
+}
+                
+?>
 
 <head>
   <script type="text/javascript" src="<?php echo $tpath.'/js/template.js.php'; ?>"></script>
@@ -139,6 +154,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     _gaq.push(['_setDomainName', 'svwiesbaden1899.de']);
     _gaq.push(['_setAllowLinker', true]);
     _gaq.push(['_trackPageview']);
+	_gaq.push(['_trackSocial', 'facebook', 'like', document.location.href, "<?php echo $_SERVER['REQUEST_URI']; ?>"]);
     
     (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -146,11 +162,21 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 	  
+	function trackOutboundLink(link, category, action) { 	 
+		try { 
+			_gaq.push(['_trackEvent', category , action]); 
+		} catch(err){}
+		 
+		setTimeout(function() {
+			document.location.href = link.href;
+		}, 100);
+	}
 	</script>
 
     <?php 
-        $option = JRequest::getCmd('option');
-        $view = JRequest::getCmd('view');
+        
+        if(is_null($view)) $view = '';
+        
         $og_desc_output = "SV Wiesbaden ist der Traditionsverein in der hessischen Landeshauptstadt Wiesbaden.";
         $og_type_output = "website";
         $og_title_output = $doc->getTitle();
@@ -184,20 +210,40 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
                 $image_output = htmlspecialchars($images->image_intro);
             }
 			?>
-			<meta http-equiv="last-modified" content="date <?php echo $article->get("publish_up"); ?>" />
-			<meta property="article:published_time"  content="<?php echo JHTML::_('date',  $article->get("publish_up"), JText::_('Y-m-d') ); ?>">
+			<?php $last_modified_date_time = JFactory::getDate( $article->get("modified") ); ?>
+			<meta http-equiv="last-modified" content="<?php echo $last_modified_date_time->toRFC822(true); ?>" />
+			<?php $published_date_time = JFactory::getDate( $article->get("publish_up") ); ?>
+			<meta property="article:published_time"  content="<?php echo $published_date_time->toISO8601(); ?>">
+			
+			<meta property="article:modified_time"   content="<?php echo $last_modified_date_time->toISO8601(); ?>"> 
+			<meta property="article:section"         content="Sports">
+			<meta property="article:tag"             content="Wiesbaden">
+			<meta property="article:tag"             content="Soccer">
+			<meta property="article:tag"             content="Fussball">
+			<meta property="article:tag"             content="Verein">
+			<meta property="article:tag"             content="SV Wiesbaden 1899 e.V.">
 			<?
-        } 
-
+        } else { ?>
+			<?php $last_modified_date_time = JFactory::getDate( $doc->get("modified") ); ?>
+			<meta http-equiv="last-modified" content="<?php echo $last_modified_date_time->toRFC822(true); ?>" />
+			<?php $published_date_time = JFactory::getDate( $doc->get("publish_up") ); ?>
+			<meta property="article:published_time"  content="<?php echo $published_date_time->toISO8601(); ?>">
+			<?
+		}
+		//<meta property="fb:app_id"               content="367134453372608"> 
     ?>	
+    
     <meta property="og:title" content="<?php echo $og_title_output; ?>">
     <meta property="og:description" content="<?php echo $og_desc_output; ?>">
     <meta property="og:url" content="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>">
+	
     <meta property="og:type" content="<?php echo $og_type_output;?>">
     <meta property="fb:admins" content="1421683534">
     <meta property="og:image" content="http://www.svwiesbaden1899.de/<?php echo $image_output; ?>">
     <meta property="og:site_name" content="SV Wiesbaden 1899 e.V. - Homepage" />
 	<meta property="og:locale" content="de_DE" />
+	
+	
 	
 	<?php
 	    $module = JModuleHelper::getModule('fb_like_svw');
@@ -210,6 +256,8 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
         $moduleParams->loadString($module->params);
 		
 		if($moduleParams->get('pluginWidth') > 0) :?><script src="js/ga.js" type="text/javascript"></script><?php endif; ?>
+		
+	<link rel="canonical" href="http://www.svwiesbaden1899.de<?php echo $_SERVER['REQUEST_URI']; ?>">
 </head>
 <?php 
     if($is_fb_de_widget){
@@ -238,7 +286,7 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 	  js = d.createElement(s); js.id = id;
 	  js.src = "//connect.facebook.net/de_DE/all.js";
 	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
+	}(document, 'script', 'facebook-jssdk'));	
 </script>
 <?php endif; ?>
 <section id="wrapper">
@@ -267,11 +315,14 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 					<jdoc:include type="modules" name="content-navigation" />
 					
                     <jdoc:include type="modules" name="SVW Pre Content" />
-					<?php if ($view=="category") : ?><div id="blog"><?php endif; ?>
-					<jdoc:include type="component" />
+                     
+					<div <?php if ($view=="category") echo' id="blog" '; ?>>
 					
-                    <jdoc:include type="modules" name="svw-content" />
-					<?php if ($view=="category") : ?></div><?php endif; ?>
+					   <jdoc:include type="component" />					
+					   <jdoc:include type="modules" name="svw-content" />
+					   
+				    </div>
+				    
                     <jdoc:include type="modules" name="SVW Team" />
 
                     <jdoc:include type="modules" name="fussball-de-widget-00" />
@@ -291,7 +342,8 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
 </section> 
   <footer id="footer" class="group noPrint">
         <div class="infooter">
-            <section>
+            <jdoc:include type="modules" name="Footer" />
+            <section class="imprint">
                 <header style="display:none"><h2>Homepage Informationen</h2></header>
         		<p class="center">Created & Designed by <a itemprop="author" href="http://plus.google.com/111996881846771358377/posts">PL07</a> &#169; 2012 &#124; All rights reserved.</p>
         		<p class="center">
@@ -324,13 +376,10 @@ unset($doc->_scripts[$this->baseurl.'/media/system/js/caption.js']);
     // iPad
     var isiPad = navigator.userAgent.match(/iPad/i) != null;
     if (isiPad) $('#menu ul').addClass('no-transition');    
+	
+	// Track Facebook
+	_ga.trackFacebook();
  </script>
-	<?php if($moduleParams->get('pluginWidth') > 0) :?>
-		<!-- Google Analytics tracking -->
-		<script>
-			_ga.trackFacebook();
-		</script>
-	<?php endif; ?>
 </body>
 </html>
 

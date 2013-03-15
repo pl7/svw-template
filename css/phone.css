@@ -25,6 +25,13 @@
     padding: 1em 1em !important;
     width: 100%;
 }
+#main .inmain > section {
+	float: none;
+	margin: 0;
+	width: 100%;
+}
+
+.ac > * { float: none; border-bottom: 1px dotted #ddd; padding: 0 10px 5px 10px; margin: 0; }
 
 section#content {
     margin: 0;

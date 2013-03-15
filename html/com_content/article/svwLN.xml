@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="SVW Team Seite 2.0" option="SVW Team Seite 2.0">
+	<layout title="SVW Leistungsnachweis" option="SVW Leistungsnachweis">
 		<help
 			key = "JHELP_MENUS_MENU_ITEM_ARTICLE_SINGLE_ARTICLE"
 		/>
@@ -24,56 +24,13 @@
 
 	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
-    	<!-- social options. -->
-		<fieldset name="social"
-			label="TPL_SVW_TEAM_SOCIAL_SETTINGS">
-    	
-    		<field
-    			name="fb_like"
-    			type="list"
-    			label="TPL_SVW_TEAM_SOCIAL_FIELD_FACEBOOK_LABEL"
-    			description="TPL_SVW_TEAM_SOCIAL_FIELD_FACEBOOK_DESC">
-    			<option value="">JGLOBAL_USE_GLOBAL</option>
-    			<option value="0">JHIDE</option>
-    			<option value="1">JSHOW</option>
-    		</field>
-        				
-    	</fieldset>
     	
 		<!-- svw team options. -->
 		<fieldset name="svwteam"
 			label="TPL_SVW_TEAM_SETTINGS">
             
     		<field type="spacer" name="mainspacer" label="TPL_SVW_TEAM_SPACER" />
-			
-			<field 
-				name="team_pic_caption" 
-				type="textarea" default="" 
-				label="Mannschaftsfoto" 
-				description="Auflistung der Spielernamen auf dem Mannschaftsfoto" 
-				rows="10" 
-				cols="15" 
-				filter="raw"/>
-				<!-- TPL_SVW_TEAM_FIELD_SHOW_TEAM_PIC_LABEL -->
-			<field
-    			name="show_team_pic"
-    			default="0"
-    			type="list"
-    			label="Mannschaftsfoto" 
-    			description="TPL_SVW_TEAM_FIELD_SHOW_TEAM_PIC_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-			
-    		<field
-    			name="team_type"
-    			type="list"
-    			label="TPL_SVW_TEAM_FIELD_TYPE_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_TYPE_DESC">
-    			<option value="1">TPL_SVW_TEAM_OPTION_TYPE_JUNIORS</option>
-    			<option value="0">TPL_SVW_TEAM_OPTION_TYPE_SENIORS</option>
-    		</field>
-    		   
+    
              <field 
                 name="team_key" 
                 type="text" 
@@ -88,117 +45,6 @@
                 label="Saison-Schlüssel" 
                 description="z.b. 1213 für 2012/2013">
             </field>
-            
-    		<field type="spacer" name="teamspacer" label="TPL_SVW_TEAM_SPACER_TEAM" />
-			
-             <field 
-                name="event_title" 
-                type="text"
-                label="Überschrift" 
-                description="Titel über den Terminen">
-            </field>
-    		
-			
-    		<field
-    			name="show_members"
-    			default="0"
-    			type="list"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_MEMBERS_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_MEMBERS_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    		
-    		<field
-    			name="show_coaches"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_COACHES_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_COACHES_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    		<field
-    			name="show_keepers"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_KEEPER_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_KEEPER_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    
-    		<field type="spacer" name="eventspacer" label="TPL_SVW_TEAM_SPACER_EVENTS" />
-    		<field
-    			name="show_train_events"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_TRAINEVENTS_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_TRAINEVENTS_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-			
-    		<field
-    			name="show_league_games"
-    			type="list"
-    			default="0"
-    			label="Ligaspiele anzeigen"
-    			description="">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    		<field
-    			name="show_events"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_EVENTS_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_EVENTS_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    		<field
-    			name="show_turnaments"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_TURNAMENTS_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_TURNAMENTS_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    		<field
-    			name="show_friendlies"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_FRIENDLIES_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_FRIENDLIES_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    		<field
-    			name="show_cups"
-    			type="list"
-    			default="0"
-    			label="TPL_SVW_TEAM_FIELD_SHOW_CUPS_LABEL"
-    			description="TPL_SVW_TEAM_FIELD_SHOW_CUPS_DESC">
-    			<option value="1">JSHOW</option>
-    			<option value="0">JHIDE</option>
-    		</field>
-    				
-    		<field type="spacer" name="juniorsimages" label="TPL_SVW_TEAM_SPACER_IMAGE_PATH_JUNIORS" />
-    		<field 
-    		  name="img_path" 
-    		  type="folderlist" 
-    		  label="TPL_SVW_TEAM_FIELD_IMAGE_PATH_JUNIORS" 
-    		  directory="/images/jugend/" />
-    		  
-    		<field type="spacer" name="seniorsimages" label="TPL_SVW_TEAM_SPACER_IMAGE_PATH_SENIORS" />
-    		<field 
-    		  name="img_path_seniors" 
-    		  type="folderlist" 
-    		  label="TPL_SVW_TEAM_FIELD_IMAGE_PATH_SENIORS" 
-    		  directory="/images/senioren/" />
-    				
 		</fieldset>
 
 		<!-- Basic options. -->

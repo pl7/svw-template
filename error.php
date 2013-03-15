@@ -30,9 +30,9 @@ $tpath = $this->baseurl.'/templates/'.$this->template;
 </head>
 
 <body>
-  <div align="center">
+  <div>
     <div id="error">
-      <h1 align="center"><a href="<?php echo $this->baseurl; ?>/" class="ihrlogo">IhrLogo</a></h1>
+      <h1><a href="<?php echo $this->baseurl; ?>/news" class="ihrlogo"><img src="<?php echo $this->baseurl; ?>/images/icons/svw_logo_traditon_aus_leidenschaft_150.jpg" alt=""></a></h1>
       <?php 
         echo $this->error->getCode().' - '.$this->error->getMessage(); 
         if (($this->error->getCode()) == '404') {
@@ -41,13 +41,46 @@ $tpath = $this->baseurl.'/templates/'.$this->template;
         }
       ?>
       <p><?php echo JText::_('JERROR_LAYOUT_GO_TO_THE_HOME_PAGE'); ?>: 
-      <a href="<?php echo $this->baseurl; ?>/"><?php echo JText::_('JERROR_LAYOUT_HOME_PAGE'); ?></a>.</p>
+      <a href="<?php echo $this->baseurl; ?>/news"><?php echo JText::_('JERROR_LAYOUT_HOME_PAGE'); ?></a>.</p>
       <?php // render module mod_search
         $module = new stdClass();
         $module->module = 'mod_search';
         echo JModuleHelper::renderModule($module);
       ?>
     </div>
+      <div id="outline">
+		<div id="errorboxoutline">
+            <div id="errorboxheader"> <?php echo $this->title; ?></div>
+                <div id="errorboxbody">
+                    <p><strong><?php echo JText::_('JERROR_LAYOUT_NOT_ABLE_TO_VISIT'); ?></strong></p>
+                    	<ol>
+                    		<li><?php echo JText::_('JERROR_LAYOUT_AN_OUT_OF_DATE_BOOKMARK_FAVOURITE'); ?></li>
+                    		<li><?php echo JText::_('JERROR_LAYOUT_SEARCH_ENGINE_OUT_OF_DATE_LISTING'); ?></li>
+                    		<li><?php echo JText::_('JERROR_LAYOUT_MIS_TYPED_ADDRESS'); ?></li>
+                    		<li><?php echo JText::_('JERROR_LAYOUT_YOU_HAVE_NO_ACCESS_TO_THIS_PAGE'); ?></li>
+                    		<li><?php echo JText::_('JERROR_LAYOUT_REQUESTED_RESOURCE_WAS_NOT_FOUND'); ?></li>
+                    		<li><?php echo JText::_('JERROR_LAYOUT_ERROR_HAS_OCCURRED_WHILE_PROCESSING_YOUR_REQUEST'); ?></li>
+                    	</ol>
+                    <p><strong><?php echo JText::_('JERROR_LAYOUT_PLEASE_TRY_ONE_OF_THE_FOLLOWING_PAGES'); ?></strong></p>
+                    
+                    	<ul>
+                    		<li><a href="<?php echo $this->baseurl; ?>/news" title="<?php echo JText::_('JERROR_LAYOUT_GO_TO_THE_HOME_PAGE'); ?>"><?php echo JText::_('JERROR_LAYOUT_HOME_PAGE'); ?></a></li>
+                    		<li><a href="<?php echo $this->baseurl; ?>/news?option=com_search" title="<?php echo JText::_('JERROR_LAYOUT_SEARCH_PAGE'); ?>"><?php echo JText::_('JERROR_LAYOUT_SEARCH_PAGE'); ?></a></li>
+                    
+                    	</ul>
+                    
+                    <p><?php echo JText::_('JERROR_LAYOUT_PLEASE_CONTACT_THE_SYSTEM_ADMINISTRATOR'); ?>.</p>
+                    <div id="techinfo">
+                        <p><?php echo $this->error->getMessage(); ?></p>
+                        <p>
+                        	<?php if ($this->debug) :
+                        		echo $this->renderBacktrace();
+                        	endif; ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+		</div>
   </div>
 </body>
 
