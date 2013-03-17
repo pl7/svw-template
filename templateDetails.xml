@@ -7,7 +7,7 @@
 	<copyright>Copyright © 2013 PL07.de</copyright>
 	<authorEmail>pascal.link@pl07.de</authorEmail>
 	<authorUrl>http://www.pl07.de</authorUrl>
-	<version>2.0.0</version>
+	<version>2.2.0</version>
 	<description><![CDATA[	
     	<img height="275px" style="float:right;margin:1em;" src="../templates/svw/template_preview.jpg" />
 		<h1>Template für die Homeapge des SV Wiesbaden 1899 e.V.</h1>
@@ -25,8 +25,8 @@
            <dt>SVW Template</dt>
            <dd>
               <dl>
-                 <dt>Version</dt><dd>2.0.0</dd>
-                 <dt>Datum</dt><dd>30. Januar 2013</dd>
+                 <dt>Version</dt><dd>2.2.0</dd>
+                 <dt>Datum</dt><dd>16. März 2013</dd>
               </dl>
            </dd>
         <dl>
@@ -79,7 +79,6 @@
 		<position>FB-LIKE-SIDEBAR</position>
 		<position>Slideshow</position>
 		<position>fussball-de-widget-00</position>
-		<position>Footer</position>
 	</positions>
 	
 	<config>

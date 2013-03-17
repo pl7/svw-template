@@ -1,0 +1,84 @@
+#contact-page .contact-tabs ul li {
+    float: left;  
+}
+#contact-page .contact-tabs li {
+    margin: 0;
+    padding: 0;
+}
+#contact-page .contact-tabs ul li a {
+    /* padding: 0.5em 10px 0.25em;*/
+    padding: 6px 10px;
+    font-size: 14px; 
+    line-height: 44px;
+}
+#contact-page .contact-tabs ul li.active a {
+    border-bottom: rgb(0,26,229) 2px solid;
+}
+#contact-page .contact-tabs ul li.active:hover a {
+    border-bottom-color: rgb(255,74,0);
+}
+#contact-page .contact-tabs ul li:hover a {
+    color: rgb(255,74,0);
+    text-decoration: none;
+}
+
+#contact-page .contact-tabs ul li:hover {
+    background: #EFEFEF;
+}
+
+#contact-page .basic-details-tab .e-mail-form,
+#contact-page .display-form-tab .contact-details {
+    display: none;
+}
+
+#contact-page article .contact-image {
+    float: left;
+    margin-right: 1em;
+}
+#contact-page article .contact-image img {
+    height: 250px;
+}
+#contact-page article .contact-details img {
+    float: left;
+    margin-right: 0.25em;
+    vertical-align: middle;
+}
+
+#contact-page .contact-form label {
+    font-weight: bold;
+}
+#contact-page .contact-form input {
+    margin-bottom: 1em;
+}
+
+#contact-form .button.validate {
+    
+    background-color: rgb(255,74,0);
+    border: 1px solid #29691D;
+    
+    color: white;
+    
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    
+    cursor: pointer;
+    
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    margin-top: 1em;
+    margin-right: 16px;
+    height: 27px;
+    line-height: 27px;
+    min-width: 54px;
+    outline: 0;
+    padding: 0 8px;
+}
+
+#contact-form .button.validate:hover {
+    background-color: #FF7640;
+}
