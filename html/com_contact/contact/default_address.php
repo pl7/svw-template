@@ -16,41 +16,43 @@ $tpath = '/templates/'.$app->getTemplate();
  */
 ?>
 <?php if (($this->params->get('address_check') > 0) &&  ($this->contact->address || $this->contact->suburb  || $this->contact->state || $this->contact->country || $this->contact->postcode)) : ?>
-	<p class="contact-address">
+	<div class="contact-address">
 	<?php if ($this->params->get('address_check') > 0) : ?>
-		<img src="<?php echo $tpath; ?>/images/icons/location.png" />
+		<a target="_blank" title="In Google Maps öffnen" href="https://maps.google.de/maps?q=<?php echo urlencode($this->contact->address." ".$this->contact->postcode." ".$this->contact->suburb);?>"><img src="<?php echo $tpath; ?>/images/icons/location.png" alt="Google Maps Location Icon" /></a>
 		<address>
 	<?php endif; ?>
 	<?php if ($this->contact->address && $this->params->get('show_street_address')) : ?>
-		<span class="contact-street">
+		<p><span class="contact-street">
 			<?php echo nl2br($this->contact->address); ?>
-		</span>
+		</span>	</p>
 	<?php endif; ?>
+	<?php if ($this->contact->postcode && $this->params->get('show_postcode')) : ?>
+		<p><span class="contact-postcode">
+			<?php echo $this->contact->postcode; ?>
+		</span><?php if (!$this->contact->suburb && !$this->params->get('show_suburb')) echo '</p>'; ?>
+	<?php endif; ?>
+	
 	<?php if ($this->contact->suburb && $this->params->get('show_suburb')) : ?>
 		<span class="contact-suburb">
 			<?php echo $this->contact->suburb; ?>
-		</span>
+		</span></p>
 	<?php endif; ?>
 	<?php if ($this->contact->state && $this->params->get('show_state')) : ?>
-		<span class="contact-state">
+		<p><span class="contact-state">
 			<?php echo $this->contact->state; ?>
 		</span>
-	<?php endif; ?>
-	<?php if ($this->contact->postcode && $this->params->get('show_postcode')) : ?>
-		<span class="contact-postcode">
-			<?php echo $this->contact->postcode; ?>
-		</span>
+		<?php if (!$this->contact->country && !$this->params->get('show_country')) echo '</p>'; ?>
 	<?php endif; ?>
 	<?php if ($this->contact->country && $this->params->get('show_country')) : ?>
 		<span class="contact-country">
 			<?php echo $this->contact->country; ?>
-		</span>
+		</span></p>
 	<?php endif; ?>
 <?php endif; ?>
 
 <?php if ($this->params->get('address_check') > 0) : ?>
-	</address>
-	</p>
+	   </address>
+	</div>
 <?php endif; ?>
 
 <?php if($this->params->get('show_email') || $this->params->get('show_telephone')||$this->params->get('show_fax')||$this->params->get('show_mobile')|| $this->params->get('show_webpage') ) : ?>
@@ -59,7 +61,7 @@ $tpath = '/templates/'.$app->getTemplate();
 <?php if ($this->contact->email_to && $this->params->get('show_email')) : ?>
     <p class="mail">
         <img src="<?php echo $tpath; ?>/images/icons/mail.png" />
-        <span itemprop="mail"><?php echo nl2br($this->contact->email_to); ?></span>
+        <span itemprop="mail"><?php echo $this->contact->email_to; ?></span>
     </p>
 <?php endif; ?>
 

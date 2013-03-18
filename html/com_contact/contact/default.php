@@ -14,15 +14,26 @@ $doc->addScript("/templates/svw/js/menuTabs.js");
 
 $cparams = JComponentHelper::getParams ('com_media');
 
-$default_tab = isset($_GET['tab']) ? $_GET['tab'] : 'basic-details';
-$is_basic_active = isset($_GET['tab']) &&  $_GET['tab'] == 'basic-details';
-$is_display_form = isset($_GET['tab']) &&  $_GET['tab'] == 'display-form';
+$messages = JFactory::getSession()->get('application.queue');
+if(sizeof($messages) > 0){
+    $is_display_form = true;
+    $default_tab = 'display-form';
+}
+else{
+    $default_tab = isset($_GET['tab']) ? $_GET['tab'] : 'basic-details';
+    $is_basic_active = isset($_GET['tab']) &&  $_GET['tab'] == 'basic-details';
+    $is_display_form = isset($_GET['tab']) &&  $_GET['tab'] == 'display-form';
+    
+}
 
 if(!$is_display_form && !$is_basic_active) { $is_basic_active = true;}
+
+
 
 ?>
 <script type="text/javascript">
     var currentContactTab = '<?php echo $default_tab; ?>';
+    
 </script>
 
 <section class="panel-item ac <?php echo $this->pageclass_sfx?>" id="contact-page">
@@ -42,7 +53,7 @@ if(!$is_display_form && !$is_basic_active) { $is_basic_active = true;}
 	</menu>
     <?php endif; ?>
     <?php /* !Header */ ?>
-    <header class="border-top-orange" <?php if ($this->params->get('show_page_heading')) echo 'style="display:none"'; ?>>
+    <header class="border-top-orange" <?php if (!$this->params->get('show_page_heading')) echo 'style="display:none"'; ?>>
         <h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
     </header>
     

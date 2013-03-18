@@ -18,6 +18,7 @@ JHtml::_('behavior.tooltip');
 
 <div class="contact-form">
 	<form id="contact-form" action="<?php echo JRoute::_('index.php'); ?>" method="post" class="form-validate">
+        <input type="hidden" name="tab" value="display-form"/>
 		<fieldset>
 			<legend><?php echo JText::_('COM_CONTACT_FORM_LABEL'); ?></legend>
 			<dl>

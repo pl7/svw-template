@@ -986,3 +986,5 @@ aside .info h3 {
     margin: 0;
     padding: 0.25em 0.5em;
 }
+
+.fcaptchafieldcontainer img { max-width:none; }
